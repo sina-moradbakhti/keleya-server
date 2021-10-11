@@ -69,4 +69,30 @@ Executing (default): SHOW INDEX FROM `Users`
 <br/>
 
 ## Ready to use
+
 Now everythings are ready to use.
+
+<br/>
+
+## Configurations
+
+You can change the database configuration such as `HOST`, `USER`, `PASS`, `DB Name` and even `JWT secret key` from the following file.
+
+```
+$ root/.env
+```
+
+<br/>
+
+## Summary
+
+About this project I mean back-end of the keleya app, there was some new experience for me by Sequalize library.
+Since I had never worked with Sequalize before it was a bit challengy but after a couple of hours working on that and readign some articles I got what it is and how it works. But for the making restful apis using nodejs and typescript surly it was so clear and of course I have worked with them currently and kinda expert on them.
+
+Only thing that I unfortunately have never worked on is AWS although I'm familiar with but I'm expert in other alternatives such as Google Cloud.
+So I decided to deploy the project on Google Cloud instead.
+
+<br/>
+Sincerely Yours,
+<br/>
+Sina

@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import fs from 'fs';
 import dotenv from 'dotenv';
 import { JwtCallbackResult } from '../models/jwt.res';
 

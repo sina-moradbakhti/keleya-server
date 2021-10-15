@@ -89,8 +89,8 @@ $ root/.env
 About this project I mean back-end of the keleya app, there was some new experience for me by Sequalize library.
 Since I had never worked with Sequalize before it was a bit challengy but after a couple of hours working on that and readign some articles I got what it is and how it works. But for the making restful apis using nodejs and typescript surly it was so clear and of course I have worked with them currently and kinda expert on them.
 
-Only thing that I unfortunately have never worked on is AWS although I'm familiar with but I'm expert in other alternatives such as Google Cloud.
-So I decided to deploy the project on Google Cloud instead.
+Only thing that I unfortunately have never worked on is AWS although I'm familiar with but I'm expert in other alternatives such as Google Cloud and Heroku Cloud.
+So I decided to deploy the project on Google Cloud or Heroku instead but they are need a credit card too so we are do not access to credit card from Iran therefor I tought it's better to keep on just on local server.
 
 <br/>
 Sincerely Yours,

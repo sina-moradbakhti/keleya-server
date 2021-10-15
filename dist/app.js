@@ -21,7 +21,6 @@ const responses_1 = require("./shared/globals/responses");
 //const token_secret = require('crypto').randomBytes(64).toString('hex');
 const app = (0, express_1.default)();
 const port = 3000;
-const db = require('./shared/models/user.seq.model');
 user_model_1.UserModel.sync();
 function checkUserExist(req, res, isSignInCheck = false) {
     return __awaiter(this, void 0, void 0, function* () {

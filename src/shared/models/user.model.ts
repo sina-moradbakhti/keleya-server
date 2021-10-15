@@ -6,7 +6,7 @@ export interface UserInterface extends Model {
     name: string;
     email: string;
     password: string;
-    baby_birth_date: Date;
+    baby_birth_date: string;
     onboarding_done: boolean;
     accepted_privacy_policy: boolean;
     accepted_terms_and_conditions: boolean;
@@ -30,7 +30,7 @@ export const UserModel = sequlize.define<UserInterface>("Users", {
         type: DataTypes.STRING
     },
     baby_birth_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true
     },
     onboarding_done: {

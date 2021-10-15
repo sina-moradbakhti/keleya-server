@@ -21,7 +21,7 @@ exports.UserModel = db_connection_1.sequlize.define("Users", {
         type: sequelize_1.DataTypes.STRING
     },
     baby_birth_date: {
-        type: sequelize_1.DataTypes.DATE,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: true
     },
     onboarding_done: {

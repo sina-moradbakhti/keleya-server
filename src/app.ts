@@ -17,7 +17,6 @@ import {
 
 const app = express();
 const port = 3000;
-const db = require('./shared/models/user.seq.model');
 UserModel.sync();
 
 async function checkUserExist(req, res, isSignInCheck = false): Promise<UserInterface> {

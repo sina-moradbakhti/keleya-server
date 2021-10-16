@@ -20,7 +20,7 @@ export async function jwtVerifyToken(token): Promise<JwtCallbackResult> {
         callback.fakeMessage = '';
         callback.result = res;
     } catch (er) {
-        callback.code = 403;
+        callback.code = 401;
         callback.message = er.message;
         callback.fakeMessage = 'Token is not valid!';
         if(er.message === 'jwt expired') callback.fakeMessage = 'Token expired!';

@@ -164,6 +164,7 @@ app.post('/api/users/auth', async (req, res) => {
     UserSignInToAccountRegisteredSuccessfully.output.result = {
         token: token,
         id: checkUser.id,
+        name: checkUser.name,
         onboarding_done: checkUser.onboarding_done,
         baby_birth_date: checkUser.baby_birth_date
     };

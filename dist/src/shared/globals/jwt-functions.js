@@ -33,7 +33,7 @@ function jwtVerifyToken(token) {
             callback.result = res;
         }
         catch (er) {
-            callback.code = 403;
+            callback.code = 401;
             callback.message = er.message;
             callback.fakeMessage = 'Token is not valid!';
             if (er.message === 'jwt expired')

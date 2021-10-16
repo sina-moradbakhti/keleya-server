@@ -81,6 +81,24 @@ export const UserUpdatedSuccessfully = {
     }
 }
 
+export const TokenUpdatedSuccessfully = {
+    status: 200,
+    output: {
+        status: 200,
+        message: 'The token updated successfully.',
+        result: {}
+    }
+}
+
+export const TokenUpdatingFailed = {
+    status: 403,
+    output: {
+        status: 403,
+        message: 'The token updating was failed.',
+        result: {}
+    }
+}
+
 export const UserUpdatingFailed = {
     status: 403,
     output: {

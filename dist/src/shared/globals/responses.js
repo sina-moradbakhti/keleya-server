@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TheUserNotFound = exports.UserUpdatingFailed = exports.UserUpdatedSuccessfully = exports.UserSignInToAccountRegisteredSuccessfully = exports.UserSignInToAccountRequiredFields = exports.UserCreateAccountRequiredFields = exports.UserCreateAccountUserNotFound = exports.UserCreateAccountUserAlreadyExist = exports.UserCreateAccountRegisteredSuccessfully = exports.JwtAuthenticanFailed = exports.DatabaseConnectionSuccess = exports.DatabaseConnectionfailed = void 0;
+exports.TheUserNotFound = exports.UserUpdatingFailed = exports.TokenUpdatingFailed = exports.TokenUpdatedSuccessfully = exports.UserUpdatedSuccessfully = exports.UserSignInToAccountRegisteredSuccessfully = exports.UserSignInToAccountRequiredFields = exports.UserCreateAccountRequiredFields = exports.UserCreateAccountUserNotFound = exports.UserCreateAccountUserAlreadyExist = exports.UserCreateAccountRegisteredSuccessfully = exports.JwtAuthenticanFailed = exports.DatabaseConnectionSuccess = exports.DatabaseConnectionfailed = void 0;
 exports.DatabaseConnectionfailed = {
     status: 503,
     output: {
@@ -71,6 +71,22 @@ exports.UserUpdatedSuccessfully = {
     output: {
         status: 200,
         message: 'The user updated successfully.',
+        result: {}
+    }
+};
+exports.TokenUpdatedSuccessfully = {
+    status: 200,
+    output: {
+        status: 200,
+        message: 'The token updated successfully.',
+        result: {}
+    }
+};
+exports.TokenUpdatingFailed = {
+    status: 403,
+    output: {
+        status: 403,
+        message: 'The token updating was failed.',
         result: {}
     }
 };

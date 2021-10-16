@@ -10,6 +10,10 @@ exports.UserModel = db_connection_1.sequlize.define("Users", {
         defaultValue: sequelize_1.DataTypes.UUIDV4,
         allowNull: false
     },
+    token: {
+        type: sequelize_1.DataTypes.TEXT,
+        allowNull: true
+    },
     name: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: true

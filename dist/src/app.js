@@ -22,6 +22,18 @@ const responses_1 = require("./shared/globals/responses");
 const app = (0, express_1.default)();
 const port = 3000;
 user_model_1.UserModel.sync();
+function checkUserExistByToken(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let found = yield user_model_1.UserModel.findOne({ where: { email: req.body.email, token: req.body.token } });
+        if (found === null) {
+            res.status(responses_1.UserCreateAccountUserNotFound.status).json(responses_1.UserCreateAccountUserNotFound.output);
+            return null;
+        }
+        else {
+            return found;
+        }
+    });
+}
 function checkUserExist(req, res, isSignInCheck = false) {
     return __awaiter(this, void 0, void 0, function* () {
         let found = yield user_model_1.UserModel.findOne(isSignInCheck ?
@@ -42,6 +54,14 @@ function checkUserExist(req, res, isSignInCheck = false) {
             return null;
         }
     });
+}
+function checkRequiredFieldsForRefreshToken(req, res) {
+    if (req.body.id === undefined || req.body.email === undefined || req.body.token === undefined) {
+        res.status(responses_1.UserCreateAccountRequiredFields.status)
+            .json(responses_1.UserCreateAccountRequiredFields.output);
+        return false;
+    }
+    return true;
 }
 function checkRequiredFieldsForUpdate(req, res) {
     if (req.body.id === undefined || req.body.email === undefined) {
@@ -72,15 +92,16 @@ app.post('/api/users', (req, res) => __awaiter(void 0, void 0, void 0, function*
     let checkUser = yield checkUserExist(req, res);
     if (checkUser !== null)
         return;
+    // Generate JWT Token
+    var token = (0, jwt_functions_1.jwtGenerateToken)({ email: req.body.email });
+    // Preparing output
     let user = yield user_model_1.UserModel.create({
         email: req.body.email,
         password: req.body.password,
         accepted_privacy_policy: 1,
-        accepted_terms_and_conditions: 1
+        accepted_terms_and_conditions: 1,
+        token: token
     });
-    // Generate JWT Token
-    var token = (0, jwt_functions_1.jwtGenerateToken)({ email: req.body.email });
-    // Preparing output
     responses_1.UserCreateAccountRegisteredSuccessfully.output.result = {
         token: token,
         id: user.id
@@ -97,6 +118,9 @@ app.patch('/api/users', middlewares_1.authenticateToken, (req, res) => __awaiter
             .json(responses_1.TheUserNotFound.output);
         return;
     }
+    // Generate JWT Token
+    var token = (0, jwt_functions_1.jwtGenerateToken)({ email: checkUser.email });
+    // Preparing output
     // Checking allowed fields
     var clearInput = {};
     if (req.body.name !== undefined)
@@ -105,12 +129,10 @@ app.patch('/api/users', middlewares_1.authenticateToken, (req, res) => __awaiter
         clearInput.baby_birth_date = req.body.baby_birth_date;
     if (req.body.onboarding_done !== undefined)
         clearInput.onboarding_done = req.body.onboarding_done;
+    clearInput.token = token;
     // Checking allowed fields
     yield user_model_1.UserModel.update(clearInput, { where: { email: checkUser.email, id: checkUser.id } })
         .then(() => {
-        // Generate JWT Token
-        var token = (0, jwt_functions_1.jwtGenerateToken)({ email: checkUser.email });
-        // Preparing output
         responses_1.UserUpdatedSuccessfully.output.result = {
             token: token
         };
@@ -135,10 +157,36 @@ app.post('/api/users/auth', (req, res) => __awaiter(void 0, void 0, void 0, func
     // Preparing output
     responses_1.UserSignInToAccountRegisteredSuccessfully.output.result = {
         token: token,
-        id: checkUser.id
+        id: checkUser.id,
+        onboarding_done: checkUser.onboarding_done,
+        baby_birth_date: checkUser.baby_birth_date
     };
     res.status(responses_1.UserSignInToAccountRegisteredSuccessfully.status)
         .json(responses_1.UserSignInToAccountRegisteredSuccessfully.output);
+}));
+app.post('/api/users/auth/refresh-token', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!checkRequiredFieldsForRefreshToken(req, res))
+        return;
+    let checkUser = yield checkUserExistByToken(req, res);
+    if (checkUser === null)
+        return;
+    // Generate JWT Token
+    var token = (0, jwt_functions_1.jwtGenerateToken)({ email: req.body.email });
+    // Preparing output
+    yield user_model_1.UserModel.update({ token: token }, { where: { email: checkUser.email, id: checkUser.id, token: checkUser.token } })
+        .then(() => {
+        responses_1.TokenUpdatedSuccessfully.output.result = {
+            token: token
+        };
+        res.status(responses_1.TokenUpdatedSuccessfully.status)
+            .json(responses_1.TokenUpdatedSuccessfully.output);
+    }).catch((err) => {
+        responses_1.TokenUpdatingFailed.output.result = {
+            error: err
+        };
+        res.status(responses_1.TokenUpdatingFailed.status)
+            .json(responses_1.TokenUpdatingFailed.output);
+    });
 }));
 app.listen(port, () => {
     return console.log(`Keleya server is listening on ${port}`);

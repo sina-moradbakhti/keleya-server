@@ -3,6 +3,7 @@ import { sequlize } from "../globals/database/db.connection";
 
 export interface UserInterface extends Model {
     id: number;
+    token: string;
     name: string;
     email: string;
     password: string;
@@ -18,6 +19,10 @@ export const UserModel = sequlize.define<UserInterface>("Users", {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false
+    },
+    token: {
+        type: DataTypes.TEXT,
+        allowNull: true
     },
     name: {
         type: DataTypes.STRING,
